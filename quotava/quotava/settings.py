@@ -82,14 +82,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-# Simple JWT settings
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token expires in 1 hour
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Refresh token valid for 7 days
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
