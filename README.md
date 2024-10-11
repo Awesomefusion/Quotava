@@ -5,10 +5,23 @@ Quotes can influence a company’s culture; Amazons culture is complex but is la
 
 # Build & Run the Application
 
+## Back-End
+1. Navigate to `Quotava` directory
+2. Navigate to the `quotava` directory
+3. Run `python manage.py runserver`
+4. Click on `http://127.0.0.1:8000/` to start the back-end.
 
-## Server
 
-## Client
+## Front-End
+
+1. Navigate to `Quotava` directory
+2. Navigate to `quotava-frontend` directory
+3. Install prerequisites, Node.JS and NPM
+4. Run `npm install`
+5. Run `npm start`
+6. Click on `http://localhost:4200/` for front-end client.
+
+# Both must be running in the browser in order to run locally.
 
 # Web App Link
 
