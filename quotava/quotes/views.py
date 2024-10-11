@@ -1,23 +1,37 @@
-from rest_framework import viewsets
-from .models import Quote, Author, Category, User
-from .serializers import QuoteSerializer, AuthorSerializer, CategorySerializer, UserSerializer
+from django.contrib.auth.models import User
+from rest_framework import generics
+
+from .models import Quote, Category
+from .serializers import QuoteSerializer, CategorySerializer, UserSerializer
 
 
-class QuoteViewSet(viewsets.ModelViewSet):
+class QuoteListCreateView(generics.ListCreateAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
 
 
-class AuthorViewSet(viewsets.ModelViewSet):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
+class QuoteDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
+# Category Views
+class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+# User Views
+class UserListCreateView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

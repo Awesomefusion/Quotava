@@ -1,40 +1,47 @@
+from django.contrib.auth.models import AbstractUser, Permission, Group
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-
-# Custom User model to match the schema in the document
-class User(AbstractUser):
-    is_admin = models.BooleanField(default=False)
-
-
-class Author(models.Model):
-    author_name = models.CharField(max_length=50)
-    birth_date = models.DateField(null=True, blank=True)
-    death_date = models.DateField(null=True, blank=True)
-
-    def __str__(self):
-        return self.author_name
 
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.category_name
+        return self.name
 
 
+class Author(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+# Quote Model
 class Quote(models.Model):
-    quote_text = models.CharField(max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.TextField()
+    content = models.TextField()
+    category = models.TextField()
 
     def __str__(self):
-        return self.quote_text
+        return f'"{self.content}" - {self.author.name}'
 
 
-class QuoteCategories(models.Model):
-    quote = models.ForeignKey(Quote, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+class User(AbstractUser):
+    # Override groups and user_permissions with unique related_name to avoid clashes
+    groups = models.ManyToManyField(
+        Group,
+        related_name='custom_user_set',  # Change the related_name to avoid clashes
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='custom_user_permissions_set',  # Change the related_name to avoid clashes
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
 
-    class Meta:
-        unique_together = (('quote', 'category'),)
+    def __str__(self):
+        return self.username
